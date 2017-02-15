@@ -16,6 +16,7 @@ Route::get('/', 'AdsController@index')->name('home');
 Route::get('/ads/create','AdsController@create');
 Route::post('/ads', 'AdsController@store');
 Route::get('/ads/{ad}','AdsController@show');
+Route::get('/ads/tags/{tag}','TagsController@index');
 
 Route::get('/register','RegistrationController@create');
 Route::post('/register','RegistrationController@store');

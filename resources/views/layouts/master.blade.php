@@ -20,12 +20,16 @@
   <body>
 
 	   @include('layouts.nav')
- 
 
-      
-    		@yield('content')
+        @if ($flash = session('message'))
+         <div class="alert alert-success" role="alert">
+            {{ $flash }}
+         </div>
+        @endif 
+ <div class="content">   		
+    @yield('content')
         
-  	
+  </div>  	
   
  		@include('layouts.footer')
     

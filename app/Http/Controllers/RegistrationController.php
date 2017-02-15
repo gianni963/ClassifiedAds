@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 
 use App\User;
 use Illuminate\Support\Facades\Hash;
-
 use App\Mail\ConfirmationMAil;
+use App\Http\Requests\RegistrationRequest;
+
 class RegistrationController extends Controller
 {
 
@@ -17,18 +18,8 @@ class RegistrationController extends Controller
 
 	}
 
-    public function store()
+    public function store(RegistrationRequest $request)
     {
-    	//validate form inputs
-
-    	$this->validate(request(),[
-
-    		'name' => 'required',
-    		'email' => 'required|email',
-    		'password' => 'required|confirmed'
-
-
-		]);
 
     	 //create and save the user
 		$user = User::create([
@@ -46,7 +37,7 @@ class RegistrationController extends Controller
 		\Mail::to($user)->send(new ConfirmationMail($user));
 
 		//redirect to the homepage
-
+		session()->flash('message', 'Thanks for sign in up');
 		return redirect()->home();
 		
     }

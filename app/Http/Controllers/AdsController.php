@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Repositories\Ads;
 use App\Ad;
+use App\Tag;
 
 class AdsController extends Controller
 {
@@ -28,7 +29,8 @@ class AdsController extends Controller
 
 		//$ad = Ad::find($id);
 		//return $ad;
-		return view('ads.show', compact('ad'));
+    $tags = $ad->tags->pluck('name');
+		return view('ads.show', compact('ad','tags'));
     }
 
         public function create()
@@ -67,6 +69,8 @@ class AdsController extends Controller
            new Ad(request(['title', 'content','price', 'location']))
 
         );
+
+        session()->flash('message', 'Your ad has been published');
 
     	return redirect ('/');
     }
